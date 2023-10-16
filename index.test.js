@@ -39,4 +39,11 @@ describe('./musicians endpoint', () => {
             { name: "Rihanna", instrument: "Voice" }),
           );
     }) 
+
+    test("Testing musician delete request", async () => {
+        //send request to /musicians endpoint
+        const response = await request(app)
+            .delete("/musicians/2")
+        expect(response.statusCode).toBe(200);
+    }) 
 })

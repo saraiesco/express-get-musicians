@@ -56,4 +56,16 @@ app.post("/musicians", async (request, response) => {
     }
 })
 
+app.delete("/musicians/:id", async (request, response, next) => {
+    try{
+        const deleteMu = await Musician.destroy({where: {id : request.params.id}});
+        if (deleteMu === 0) {
+            throw new Error("Didn't delete musician")
+        }
+        response.sendStatus(200)
+    } catch (err){
+        next(err);
+    }
+})
+
 module.exports = app;
