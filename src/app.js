@@ -56,6 +56,18 @@ app.post("/musicians", async (request, response) => {
     }
 })
 
+app.put("/musicians/:id", async (request, response, next) => {
+    try{
+        const updated = await Musician.update(request.body, {where:{id:request.params.id}});
+        if (updated[0] == 0){
+            throw new Error("Didn't update musician")
+        }
+        response.sendStatus(200);
+    }   catch (err){
+        next(err)
+    }
+})
+
 app.delete("/musicians/:id", async (request, response, next) => {
     try{
         const deleteMu = await Musician.destroy({where: {id : request.params.id}});

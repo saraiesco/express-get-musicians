@@ -40,6 +40,14 @@ describe('./musicians endpoint', () => {
           );
     }) 
 
+    test("Testing musician update request", async () => {
+        //send request to /musicians endpoint
+        const response = await request(app)
+            .put("/musicians/2")
+            .send({name:"Alex Turner", instrument:"Keyboard"})
+        expect(response.statusCode).toBe(200);
+    })     
+
     test("Testing musician delete request", async () => {
         //send request to /musicians endpoint
         const response = await request(app)
