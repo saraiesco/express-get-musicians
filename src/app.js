@@ -41,4 +41,19 @@ app.get("/musicians/:id", async(request, response)=>{
     response.json(musician)
 })
 
+// part3
+app.use(express.json());
+app.use(express.urlencoded()); // needed for POST or PUT; to recognize the incoming
+app.post("/musicians", async (request, response) => {
+    try{
+        const addMu = await Musician.create(request.body);
+        if (!addMu) {
+            throw new Error("Didn't create musician")
+        }
+        response.json(addMu)
+    } catch (err){
+        next(err);
+    }
+})
+
 module.exports = app;
