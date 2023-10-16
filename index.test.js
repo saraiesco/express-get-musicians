@@ -20,4 +20,5 @@ describe('./musicians endpoint', () => {
         console.log(JSON.stringify(responseData,null,2))
         expect(responseData[0].name).toBe("Mick Jagger");
     })
+ 
 })
