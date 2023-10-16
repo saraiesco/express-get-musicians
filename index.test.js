@@ -21,4 +21,12 @@ describe('./musicians endpoint', () => {
         expect(responseData[0].name).toBe("Mick Jagger");
     })
  
+    test("Testing musician req params", async () => {
+        //send request to /musicians endpoint
+        const response = await request(app).get("/musicians/:2");
+        //will be receiving as JSON so need to parse it
+        const responseData = JSON.parse(response.text);
+        expect(response.statusCode).toBe(200);
+        expect(responseData.name).toBe("Drake");
+    }) 
 })
