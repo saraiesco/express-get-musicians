@@ -46,4 +46,12 @@ describe('./musicians endpoint', () => {
             .delete("/musicians/2")
         expect(response.statusCode).toBe(200);
     }) 
+
+    test("Testing musician put request", async () => {
+        //send request to /musicians endpoint
+        const response = await request(app)
+            .put("/musicians/3")
+            .send({name: "Kacey Musgraves", instrument: "Voice"})
+        expect(response.statusCode).toBe(200);
+    }) 
 })

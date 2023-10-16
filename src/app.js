@@ -56,6 +56,23 @@ app.post("/musicians", async (request, response) => {
     }
 })
 
+
+// The information that you update (i.e. PUT) will be 
+// contained in the body of the request trying to 
+// create the resource and be used on a specific musician 
+// through the route parameter of the request.
+app.put("/musicians/:id", async(request,response,next)=>{
+    try{
+        const updatedMu = await Musician.update(request.body,{where: {id :request.params.id}});
+        if (updatedMu[0] === 0) {
+            throw new Error("Didn't delete musician")
+        }
+        response.sendStatus(200)
+    } catch (err){
+        next(err);
+    }
+})
+
 app.delete("/musicians/:id", async (request, response, next) => {
     try{
         const deleteMu = await Musician.destroy({where: {id : request.params.id}});
