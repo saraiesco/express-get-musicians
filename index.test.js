@@ -17,16 +17,26 @@ describe('./musicians endpoint', () => {
         //will be receiving as JSON so need to parse it
         const responseData = JSON.parse(response.text);
         expect(response.statusCode).toBe(200);
-        console.log(JSON.stringify(responseData,null,2))
+        // console.log(JSON.stringify(responseData,null,2))
         expect(responseData[0].name).toBe("Mick Jagger");
     })
  
     test("Testing musician req params", async () => {
         //send request to /musicians endpoint
-        const response = await request(app).get("/musicians/:2");
-        //will be receiving as JSON so need to parse it
+        const response = await request(app).get("/musicians/2");
         const responseData = JSON.parse(response.text);
         expect(response.statusCode).toBe(200);
         expect(responseData.name).toBe("Drake");
+    }) 
+
+    test("Testing musician post request", async () => {
+        //send request to /musicians endpoint
+        const response = await request(app)
+            .post("/musicians")
+            .send({ name: "Rihanna" , instrument: "Voice"})
+        expect(response.statusCode).toBe(200);
+        expect(response.body).toEqual(expect.objectContaining(
+            { name: "Rihanna", instrument: "Voice" }),
+          );
     }) 
 })
