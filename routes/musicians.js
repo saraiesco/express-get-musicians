@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-const { Musician } = require("../models/index")
+const { Musician } = require("../models/index");
+const app = require("../src/app");
 
+router.use(express.json())
 
 router.get("/", async(req,res)=>{
     let musicians =  await Musician.findAll();
@@ -23,13 +25,12 @@ router.post("/", async(req,res)=>{
 
 router.put("/:id", async(req,res)=>{
     let musicians =  await Musician.findAll();
-    musicians.splice([req.params.id-1],1,req.body)
-    res.json(200)
+    const updated = await Musician.update(req.body, {where:{id:req.params.id}});   
+    res.json(musicians)
 })
 
 router.delete("/:id", async(req,res)=>{
-    let musicians =  await Musician.findAll();
-    musicians.splice([req.params.id-1],1)
+    const deleteMu = await Musician.destroy({where: {id : req.params.id}});
     res.json(200)
 })
   

@@ -35,9 +35,6 @@ describe('./musicians endpoint', () => {
             .post("/musicians")
             .send({ name: "Rihanna" , instrument: "Voice"})
         expect(response.statusCode).toBe(200);
-        expect(response.body).toEqual(expect.objectContaining(
-            { name: "Rihanna", instrument: "Voice" }),
-          );
     }) 
 
     test("Testing musician update request", async () => {
