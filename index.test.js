@@ -34,7 +34,36 @@ describe('./musicians endpoint', () => {
         const response = await request(app)
             .post("/musicians")
             .send({ name: "Rihanna" , instrument: "Voice"})
+
         expect(response.statusCode).toBe(200);
+      
+    }) 
+
+    test("Testing musician post validation", async () => {
+        //send request to /musicians endpoint
+        const response = await request(app)
+            .post("/musicians")
+            .send({ name: "" , instrument: ""})
+        expect(response.statusCode).toBe(200);
+        const responseData = JSON.parse(response.text)
+        expect(responseData.error).toEqual( [
+              {
+                "type": "field",
+                "value": "",
+                "msg": "Invalid value",
+                "path": "name",
+                "location": "body"
+              },
+              {
+                "type": "field",
+                "value": "",
+                "msg": "Invalid value",
+                "path": "instrument",
+                "location": "body"
+              }
+                ]);
+
+      
     }) 
 
     test("Testing musician update request", async () => {
