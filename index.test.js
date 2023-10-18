@@ -61,6 +61,12 @@ describe('./musicians endpoint', () => {
                 "msg": "Invalid value",
                 "path": "instrument",
                 "location": "body"
+              },{
+                "type": "field",
+                "value": "",
+                "msg": "Invalid value",
+                "path": "name",
+                "location": "body"
               }
                 ]);
 
